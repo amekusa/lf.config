@@ -26,6 +26,11 @@ set cursorpreviewfmt "\033[7;2m"
 # enable icons
 set icons
 
+# show keymaps
+map ? :maps
+
+# show hidden files
+map . set hidden!
 
 # use enter for shell commands
 map <enter> shell
