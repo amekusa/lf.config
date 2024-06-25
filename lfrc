@@ -39,6 +39,9 @@ map ? :maps
 # preview files
 map i $~/.config/lf/preview.sh $f | less -R
 
+# toggle preview
+map I set preview!
+
 # show hidden files
 map . set hidden!
 
