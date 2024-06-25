@@ -26,8 +26,15 @@ set cursorpreviewfmt "\033[7;2m"
 # enable icons
 set icons
 
+# enable custom previewer
+set preview
+set previewer ~/.config/lf/preview.sh
+
 # show keymaps
 map ? :maps
+
+# preview files
+map i $~/.config/lf/preview.sh $f | less -R
 
 # show hidden files
 map . set hidden!
