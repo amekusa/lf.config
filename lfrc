@@ -32,6 +32,9 @@ map ? :maps
 # show hidden files
 map . set hidden!
 
+# trash selected files
+map D trash $fs
+
 # use enter for shell commands
 map <enter> shell
 
