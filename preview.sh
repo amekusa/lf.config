@@ -20,13 +20,13 @@ case "$1" in
 		7z)  _cmd 7z l "$1" ;;
 		pdf) _cmd pdftotext "$1" - ;;
 		png|PNG|jpg|JPG|jpeg|JPEG|gif)
-			opts="--polite on -f symbols --margin-right 1"
+			opts="--polite on -f symbols --margin-right 1 --color-space din99d"
 			[ -n "$TMUX" ] && opts="$opts --passthrough tmux"
 			if $_columned
 				then opts="$opts --size ${2}x${3}"
 				else opts="$opts --scale max --align center"
 			fi
-			chafa $opts "$1"
+			_cmd chafa $opts "$1"
 		;;
 		*) cat "$1" ;;
 	esac ;;
