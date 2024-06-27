@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-_columned=false; [ $# -gt 4 ] && _columned=true
+columned=false; [ $# -gt 4 ] && columned=true
 
 _cmd() {
 	local cmd="$1"; shift
@@ -20,14 +20,14 @@ case "$1" in
 		7z)  _cmd 7z l "$1" ;;
 		pdf) _cmd pdftotext "$1" - ;;
 		png|PNG|jpg|JPG|jpeg|JPEG|gif)
-			opts="--polite on --margin-right 1 --color-space din99d --animate off"
+			opts="--polite on --color-space din99d --animate off"
 			opts="$opts --symbols sextant"
 			opts="$opts+u2582..u2586"
 			opts="$opts+u258b..u258d"
 			[ -n "$TMUX" ] && opts="$opts --passthrough tmux"
-			if $_columned
-				then opts="$opts --size ${2}x${3}"
-				else opts="$opts --scale max --align center"
+			if $columned
+				then opts="$opts -w 5 --size ${2}x${3}"
+				else opts="$opts -w 9 -p on --scale max --align center"
 			fi
 			_cmd chafa $opts "$1"
 		;;
