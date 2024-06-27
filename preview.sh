@@ -21,9 +21,8 @@ case "$1" in
 		pdf) _cmd pdftotext "$1" - ;;
 		png|PNG|jpg|JPG|jpeg|JPEG|gif)
 			opts="--polite on --margin-right 1 --color-space din99d --animate off"
-			opts="$opts -f symbols --symbols sextant"
-			opts="$opts+[+.·':●]"
-			opts="$opts+u2583..u2585"
+			opts="$opts --symbols sextant"
+			opts="$opts+u2582..u2586"
 			opts="$opts+u258b..u258d"
 			[ -n "$TMUX" ] && opts="$opts --passthrough tmux"
 			if $_columned
