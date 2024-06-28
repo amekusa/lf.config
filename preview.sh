@@ -22,6 +22,7 @@ case "$1" in
 		png|PNG|jpg|JPG|jpeg|JPEG|gif)
 			opts="--polite on --color-space din99d --animate off"
 			opts="$opts --symbols sextant"
+			opts="$opts+quad+half+solid"
 			opts="$opts+u2582..u2586"
 			opts="$opts+u258b..u258d"
 			[ -n "$TMUX" ] && opts="$opts --passthrough tmux"
