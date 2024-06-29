@@ -1,3 +1,5 @@
+# ==== LF File Manager Config ====
+
 # interpreter for shell commands
 set shell bash
 
@@ -23,44 +25,103 @@ set scrolloff 10
 # Use the `dim` attribute instead of underline for the cursor in the preview pane
 set cursorpreviewfmt "\033[7;2m"
 
-# enable icons
-set icons
-
-# enable mouse interaction
-set mouse
+set icons # enable icons
+set mouse # enable mouse interaction
 
 # enable custom previewer
 set preview
 set previewer ~/.config/lf/preview.sh
 
-# show keymaps
-map ? :maps
 
-# preview files
-map i $~/.config/lf/preview.sh $f | less -R
+# ---- KEYMAPS ----
+clearmaps # remove default bindings
 
-# toggle preview
-map I set preview!
+map ? :maps # show keymaps
+map q quit
+map <c-r> reload
+map . set hidden! # toggle hidden files
 
-# show hidden files
-map . set hidden!
+# preview
+map <space> $~/.config/lf/preview.sh $f | less -R
+map <tab> set preview! # toggle preview column
 
-# trash selected files
-map D trash $fs
 
-# use enter for shell commands
-map <enter> shell
+# -- MOVEMENTS --
+map h updir
+map j down
+map k up
+map l open
 
-# show the result of execution of previous commands
-map ` !true
+map <left>  updir
+map <down>  down
+map <up>    up
+map <right> open
+
+map <c-u> half-up
+map <c-d> half-down
+
+map <pgup> half-up
+map <pgdn> half-down
+
+map gg top
+map G  bottom
+
+# mouse wheel
+map <m-up>   scroll-up
+map <m-down> scroll-down
+
+
+# -- SEARCH --
+map f find
+map , find-prev
+map ; find-next
+map / search
+map N search-prev
+map n search-next
+map F :setfilter; filter # filter
+map <esc> :setfilter # clear filter
+
+
+# -- FILE OPERATIONS --
+map v :toggle; down # toggle selection
+map u unselect # clear selection
+map i invert # invert selection
+map y copy
+map d cut
+map c clear # clear copy/cut buffer
+map p paste
+map D trash $fs # trash selected files
+map r rename
+
+
+# -- SORTING --
+map sn :set sortby natural; set info
+map se :set sortby ext;     set info
+map sa :set sortby atime;   set info atime
+map sc :set sortby ctime;   set info ctime
+map ss :set sortby size;    set info size
+map st :set sortby time;    set info time
+map sr set reverse!
+
+
+# -- FILE INFO --
+map zn set info
+map za set info atime
+map zc set info ctime
+map zs set info size
+map zt set info time
+
+
+# -- SHELL INTEGRATION --
+map <enter> shell # shell command
 
 # execute current file (must be executable)
-map x $$f
-map X !$f
+map X $$f
+map x !$f
 
 # dedicated keys for file opener actions
-map o &mimeopen $f
-map O $mimeopen --ask $f
+map O &mimeopen $f
+map o $mimeopen --ask $f
 
 # define a custom 'open' command
 # This command is called when current file is not a directory. You may want to
