@@ -27,7 +27,7 @@ case "$1" in
 			opts="$opts+u258b..u258d"
 			[ -n "$TMUX" ] && opts="$opts --passthrough tmux"
 			if $columned
-				then opts="$opts -w 5 --size ${2}x${3}"
+				then opts="$opts -w 5 --size $(( $2 > 100 ? 100 : $2 ))x${3}" # cap width to 100
 				else opts="$opts -w 9 --scale max --align center"
 			fi
 			_cmd chafa $opts "$1"
