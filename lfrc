@@ -113,15 +113,22 @@ map zt set info time
 
 
 # -- SHELL INTEGRATION --
-map <enter> shell # shell command
+map \$ shell
+map \% shell-pipe
+map \& shell-async
+map \! shell-wait
+
+map e $$EDITOR "$f" # edit a file
 
 # execute current file (must be executable)
 map X $$f
 map x !$f
 
-# dedicated keys for file opener actions
-map O &mimeopen $f
-map o $mimeopen --ask $f
+# mkdir command. See wiki if you want it to select created dir
+map a push %mkdir<space>-p<space>
+
+
+# ---- COMMANDS ----
 
 # define a custom 'open' command
 # This command is called when current file is not a directory. You may want to
@@ -130,12 +137,9 @@ map o $mimeopen --ask $f
 cmd open &{{
     case $(file --mime-type -Lb $f) in
         text/*) lf -remote "send $id \$$EDITOR \$fx";;
-        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+        *) for f in $fx; do $OPENER "$f" > /dev/null 2> /dev/null & done;;
     esac
 }}
-
-# mkdir command. See wiki if you want it to select created dir
-map a :push %mkdir<space>
 
 # define a custom 'rename' command without prompt for overwrite
 # cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
