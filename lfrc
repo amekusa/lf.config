@@ -38,7 +38,6 @@ clearmaps # remove default bindings
 
 map ? :maps # show keymaps
 map q quit
-map <c-r> reload
 map . set hidden! # toggle hidden files
 
 # preview
@@ -79,7 +78,7 @@ map / search
 map N search-prev
 map n search-next
 map F :setfilter; filter # filter
-map <esc> :setfilter # clear filter
+map <esc> :setfilter; reload # clear filter & reload
 
 
 # -- FILE OPERATIONS --
