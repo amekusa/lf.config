@@ -61,7 +61,6 @@ map <left>  updir
 map <down>  down
 map <up>    up
 map <right> open
-map <enter> open
 
 map <c-u> half-up
 map <c-d> half-down
@@ -123,13 +122,17 @@ map \% shell-pipe
 map \& shell-async
 map \! shell-wait
 
-map e $$EDITOR "$f" # edit a file
+# edit
+map e $$EDITOR $f
+
+# enter '!<cursor> $f'
+map <enter> push !<space>$f<left><left><left>
 
 # execute current file (must be executable)
 map X $$f
 map x !$f
 
-# mkdir command. See wiki if you want it to select created dir
+# mkdir
 map a push %mkdir<space>-p<space>
 
 
