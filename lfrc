@@ -143,6 +143,7 @@ map a push %mkdir<space>-p<space>
 # use either file extensions and/or mime types here. Below uses an editor for
 # text files and a file opener for the rest.
 cmd open &{{
+	set -f
 	case $(file --mime-type -Lb $f) in
 	text/html)
 		:
