@@ -143,10 +143,16 @@ map a push %mkdir<space>-p<space>
 # use either file extensions and/or mime types here. Below uses an editor for
 # text files and a file opener for the rest.
 cmd open &{{
-    case $(file --mime-type -Lb $f) in
-        text/*) lf -remote "send $id \$$EDITOR \$fx";;
-        *) for f in $fx; do $OPENER "$f" > /dev/null 2> /dev/null & done;;
-    esac
+	case $(file --mime-type -Lb $f) in
+	text/html)
+		:
+		;;
+	text/*)
+		lf -remote "send $id \$$EDITOR \$f"
+		return
+		;;
+	esac
+	$OPENER $f &>/dev/null
 }}
 
 # define a custom 'rename' command without prompt for overwrite
