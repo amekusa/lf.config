@@ -164,7 +164,13 @@ cmd open &{{
 
 # move current file or selected files to trash folder
 # (also see 'man mv' for backup/overwrite options)
-cmd trash %set -f; mv $fx ~/.trash
+cmd trash %{{
+	set -f
+	if command -v trash &>/dev/null
+		then trash $fx
+		else mv $fx ~/.trash
+	fi
+}}
 
 # define a custom 'delete' command
 # cmd delete ${{
