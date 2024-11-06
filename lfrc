@@ -90,7 +90,13 @@ map F :setfilter; filter # filter
 map v :toggle; down # toggle selection
 map u unselect # clear selection
 map i invert # invert selection
-map y copy
+map y
+map yy copy
+map yp copy-path --full
+map yr copy-path --realpath
+map yn copy-path --basename
+map yb copy-path --basename
+map yd copy-path --dirname
 map d cut
 map c clear # clear copy/cut buffer
 map p paste
@@ -185,6 +191,28 @@ cmd trash %{{
 # use '<delete>' key for either 'trash' or 'delete' command
 # map <delete> trash
 # map <delete> delete
+
+# send path(s) to clipboard
+cmd copy-path ${{
+	set -f
+	_cmd=echo
+	case "$1" in
+		--realpath) _cmd=realpath ;;
+		--basename) _cmd=basename ;;
+		--dirname)  _cmd=dirname ;;
+	esac
+	_r=''
+	for _each in $fx; do
+		_r="$_r"$'\n'"$($_cmd "$_each")"  # concat with linebreak ($'n')
+	done
+	_r="${_r:1}"
+	if command -v pbcopy &> /dev/null; then
+		echo "$_r" | pbcopy
+	elif command -v xclip &> /dev/null; then
+		echo "$_r" | xclip
+	fi
+	unset _cmd _r _each
+}}
 
 # compress current file or selected files with tar and gunzip
 cmd tar ${{
