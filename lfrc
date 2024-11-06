@@ -100,7 +100,7 @@ map yd copy-path --dirname
 map d cut
 map c clear # clear copy/cut buffer
 map p paste
-map D trash $fs # trash selected files
+map D trash # trash selected files
 map r rename
 
 
