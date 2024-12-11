@@ -90,6 +90,12 @@ map F :setfilter; filter # filter
 
 
 # -- FILE OPERATIONS --
+# select with shift + arrows
+map <s-up>    :up; toggle
+map <s-down>  :toggle; down
+map <s-left>  invert
+map <s-right> toggle
+
 map v :toggle; down # toggle selection
 map u unselect # clear selection
 map i invert # invert selection
