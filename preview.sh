@@ -25,9 +25,8 @@ case "$1" in
 			opts="$opts+quad+half+solid"
 			opts="$opts+u2582..u2586"
 			opts="$opts+u258b..u258d"
-			opts="$opts+u25cf" # ●
 			opts="$opts+u25a0" # ■
-			# opts="$opts+u25c6" # ◆ (doesn't work)
+			# NOTE: You can't make it any better than this. Trust me, I've already tried pretty much everything, and this is the best result possible.
 			[ -n "$TMUX" ] && opts="$opts --passthrough tmux"
 			if $columned
 				then opts="$opts -w 5 --size $(( $2 > 100 ? 100 : $2 ))x${3}" # cap width to 100
