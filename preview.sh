@@ -21,9 +21,9 @@ case "$1" in
 		pdf) _cmd pdftotext "$1" - ;;
 		png|PNG|jpg|JPG|jpeg|JPEG|gif)
 			opts="--polite on --color-space din99d --animate off"
-			opts="$opts --symbols sextant"
-			opts="$opts+quad+half+solid"
-			opts="$opts+u2582..u2586"
+			opts="$opts --symbols quad+half+solid"
+			opts="$opts+sextant"
+			opts="$opts+u2581..u2587"
 			opts="$opts+u258b..u258d"
 			opts="$opts+u25a0" # ■
 			# NOTE: You can't make it any better than this. Trust me, I've already tried pretty much everything, and this is the best result possible.
