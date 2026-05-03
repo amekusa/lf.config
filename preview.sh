@@ -5,7 +5,7 @@ _cmd() {
 	if command -v "$cmd" &> /dev/null; then
 		"$cmd" "$@"
 	else
-		echo "command not found: '$cmd'"
+		echo "Command not found: '$cmd'"
 		return 1
 	fi
 }
