@@ -25,16 +25,11 @@ case "$1" in
 			opts="$opts+sextant"
 			opts="$opts+u2581..u2587"
 			opts="$opts+u258b..u258d"
-			opts="$opts+u2578+u257a" # ╸ ╺
-			opts="$opts+u2579+u257b" # ╹ ╻
-			opts="$opts+u2501" # ━
-			opts="$opts+u2503" # ┃
+			opts="$opts+u2578+u257a+u2501" # ╸ ╺ ━
+			opts="$opts+u2579+u257b+u2503" # ╹ ╻ ┃
 			opts="$opts+u250f+u2513+u2517+u251b" # ┏ ┓ ┗ ┛
-			opts="$opts+u2523+u252b" # ┣ ┫
-			opts="$opts+u2533+u253b" # ┳ ┻
-			opts="$opts+u254b" # ╋
+			opts="$opts+u2523+u252b+u2533+u253b+u254b" # ┣ ┫ ┳ ┻ ╋
 			opts="$opts+u25a0" # ■
-			# NOTE: You can't make it any better than this. Trust me, I've already tried pretty much everything, and this is the best result possible.
 			[ -n "$TMUX" ] && opts="$opts --passthrough tmux"
 			if $columned
 				then opts="$opts -w 5 --size $(( $2 > 100 ? 100 : $2 ))x${3}" # cap width to 100
