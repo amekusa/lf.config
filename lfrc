@@ -229,7 +229,7 @@ cmd trash %{{
 #     printf "$fx\n"
 #     printf "delete?[y/n]"
 #     read ans
-#     [ "$ans" = "y" ] && rm -rf $fx
+#     [ "$ans" = "y" ] && rm -r $fx
 # }}
 
 # use '<delete>' key for either 'trash' or 'delete' command
@@ -264,7 +264,7 @@ cmd tar ${{
 	mkdir $1
 	cp -r $fx $1
 	tar czf $1.tar.gz $1
-	rm -rf $1
+	rm -r $1
 }}
 
 # compress current file or selected files with zip
@@ -273,6 +273,6 @@ cmd zip ${{
 	mkdir $1
 	cp -r $fx $1
 	zip -r $1.zip $1
-	rm -rf $1
+	rm -r $1
 }}
 
