@@ -173,16 +173,37 @@ cmd open &{{
 
 # Custom 'paste' command.
 cmd paste %{{
-	load=$(cat ~/.local/share/lf/files)
-	mode=$(echo "$load" | sed -n '1p')
-	list=$(echo "$load" | sed '1d')
-	if [ $mode = 'copy' ]; then
-		cp -R $list .
-	elif [ $mode = 'move' ]; then
-		mv $list .
+	load="$(< ~/.local/share/lf/files)"
+	mode="${load%%$'\n'*}"
+	list="${load#*$'\n'}"
+	case "$mode" in
+	copy)
+		while IFS= read -r item; do
+			[ -n "$item" ] || continue
+			if ! cp -R -- "$item" .; then
+				lf -remote "send $id echoerr 'Paste failed: $item'"
+				exit 1
+			fi
+		done <<< "$list"
+		;;
+	move)
+		while IFS= read -r item; do
+			[ -n "$item" ] || continue
+			if ! cp -R -- "$item" .; then
+				lf -remote "send $id echoerr 'Paste failed: $item'"
+				exit 1
+			fi
+			rm_opt=""
+			[ -d "$item" ] && rm_opt="-r"
+			if ! rm $rm_opt -- "$item"; then
+				lf -remote "send $id echoerr 'Remove failed: $item'"
+				exit 1
+			fi
+		done <<< "$list"
 		rm ~/.local/share/lf/files
-		lf -remote 'send clear'
-	fi
+		lf -remote "send $id clear"
+		;;
+	esac
 }}
 
 # define a custom 'rename' command without prompt for overwrite
