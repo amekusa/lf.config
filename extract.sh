@@ -19,34 +19,33 @@ _extract() {
 		EOF
 		return 1
 	fi
-
 	local src="$1"
-	if [[ "$src" =~ ^(.+)(\.(zip|7z|rar|tar\.t?(gz|xz|bz2?))) ]]; then
+	if [[ "$src" =~ ^(.+)\.(zip|7z|rar|tar|tar\.t?(gz|xz|bz2?))$ ]]; then
 		local dst="${BASH_REMATCH[1]}"
-		local ext="${BASH_REMATCH[3]}"
-		echo "Extracting: $src ..."
-		echo "> dst: $dst"
-		if [ -a "$dst" ]; then
-			if [ -d "$dst" ]; then
-				echo "[WARN] Directory already exists."
-				while true; do
-					local answer; read -n 1 -p "Delete and recreate '$dst'? (Y/N) " answer; echo
-					case "$answer" in
-					[Yy])
-						rm -rf "$dst" || return 1
-						echo "Deleted: '$dst'."
-						break
-						;;
-					[Nn])
-						echo "Canceled."; return 1
-						;;
-					*)
-						echo "Type Y or N."
-					esac
-				done
-			else
-				echo "[ERROR] Destination already exists."; return 1
-			fi
+		local ext="${BASH_REMATCH[2]}"
+		echo "Extracting: '$src' ..."
+		echo "> dst: '$dst'"
+		if [ -d "$dst" ]; then
+			echo "[WARN] Directory already exists."
+			local answer
+			while true; do
+				read -n 1 -p "Delete and recreate '$dst'? (Y/N) " answer; echo
+				case "$answer" in
+				[Yy])
+					rm -r -- "$dst" || return 1
+					echo "Deleted: '$dst'."
+					break
+					;;
+				[Nn])
+					echo "Canceled."; return 1
+					;;
+				*)
+					echo "Type Y or N."
+				esac
+			done
+		elif [ -e "$dst" ]; then
+			echo "[ERROR] Destination already exists."
+			return 1
 		fi
 		mkdir -p "$dst" || return 1
 		echo "Created: '$dst'."
@@ -59,7 +58,8 @@ _extract() {
 		7z)  _cmd 7z x "$src" -o"$dst" ;;
 		esac
 	else
-		echo "[ERROR] Invalid file: '$src'."; return 1
+		echo "[ERROR] Invalid file: '$src'."
+		return 1
 	fi
 }
 
