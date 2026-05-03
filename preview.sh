@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-columned=false; [ $# -gt 4 ] && columned=true
-
 _cmd() {
 	local cmd="$1"; shift
 	if command -v "$cmd" &> /dev/null; then
@@ -12,14 +10,21 @@ _cmd() {
 	fi
 }
 
-case "$1" in
-	*.tar.*) tar tf "$1" ;;
-	*) case "${1##*.}" in
+_preview() {
+	local columned=false
+	[ $# -gt 4 ] && columned=true
+
+	case "$1" in
+	*.tar.*) _cmd tar tf "$1" ;;
+	*)
+		case "${1##*.}" in
 		zip) _cmd unzip -l "$1" ;;
 		rar) _cmd unrar l "$1" ;;
 		7z)  _cmd 7z l "$1" ;;
 		pdf) _cmd pdftotext "$1" - ;;
+
 		png|PNG|jpg|JPG|jpeg|JPEG|gif)
+			# chafa options
 			opts="--polite on --color-space din99d --animate off --dither none"
 			opts="$opts --symbols quad+half+solid"
 			opts="$opts+sextant"
@@ -36,8 +41,13 @@ case "$1" in
 				else opts="$opts -w 9 --scale max --align center"
 			fi
 			_cmd chafa $opts "$1"
-		;;
+			;;
+
 		*) cat "$1" ;;
-	esac ;;
-esac
+		esac
+		;;
+	esac
+}
+
+_preview "$@"
 
