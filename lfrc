@@ -171,6 +171,20 @@ cmd open &{{
 	$OPENER $f &>/dev/null
 }}
 
+# Custom 'paste' command.
+cmd paste %{{
+	load=$(cat ~/.local/share/lf/files)
+	mode=$(echo "$load" | sed -n '1p')
+	list=$(echo "$load" | sed '1d')
+	if [ $mode = 'copy' ]; then
+		cp -R $list .
+	elif [ $mode = 'move' ]; then
+		mv $list .
+		rm ~/.local/share/lf/files
+		lf -remote 'send clear'
+	fi
+}}
+
 # define a custom 'rename' command without prompt for overwrite
 # cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
 # map r push :rename<space>
