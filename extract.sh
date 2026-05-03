@@ -47,7 +47,7 @@ _extract() {
 			echo "[ERROR] Destination already exists."
 			return 1
 		fi
-		mkdir -p "$dst" || return 1
+		mkdir -p -- "$dst" || return 1
 		echo "Created: '$dst'."
 		case "$ext" in
 		tar.bz|tar.bz2|tar.tbz|tar.tbz2) _cmd tar xjvf "$src" -C "$dst" ;;
