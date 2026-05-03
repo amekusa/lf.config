@@ -25,6 +25,7 @@ _preview() {
 
 		png|PNG|jpg|JPG|jpeg|JPEG|gif)
 			# chafa options
+			local opts
 			opts="--polite on --color-space din99d --animate off --dither none"
 			opts="$opts --symbols quad+half+solid"
 			opts="$opts+sextant"
