@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
+_has() {
+	command -v "$1" &> /dev/null
+}
+
 _cmd() {
 	local cmd="$1"; shift
-	if command -v "$cmd" &> /dev/null; then
+	if _has "$cmd"; then
 		"$cmd" "$@"
 	else
 		echo "Command not found: '$cmd'"
@@ -12,9 +16,15 @@ _cmd() {
 
 _preview() {
 	local columned=false
-	[ $# -gt 4 ] && columned=true
+	local w=100
+	local h=100
+	if [ $# -gt 4 ]; then
+		columned=true
+		w=$(( $2 - 0 ))
+		h=$(( $3 - 0 ))
+	fi
 
-	case "$1" in
+	case "$(echo -- "$1" | tr '[:upper:]' '[:lower:]')" in
 	*.tar.*) _cmd tar tf "$1" ;;
 	*)
 		case "${1##*.}" in
@@ -23,7 +33,7 @@ _preview() {
 		7z)  _cmd 7z l "$1" ;;
 		pdf) _cmd pdftotext "$1" - ;;
 
-		png|PNG|jpg|JPG|jpeg|JPEG|gif)
+		png|jpg|jpeg|gif)
 			# chafa options
 			local opts
 			opts="--polite on --color-space din99d --animate off --dither none"
@@ -38,13 +48,20 @@ _preview() {
 			opts="$opts+u25a0" # ■
 			[ -n "$TMUX" ] && opts="$opts --passthrough tmux"
 			if $columned
-				then opts="$opts -w 5 --size $(( $2 > 100 ? 100 : $2 ))x${3}" # cap width to 100
+				then opts="$opts -w 5 --size $(( $w > 100 ? 100 : $w ))x${h}" # cap width to 100
 				else opts="$opts -w 9 --scale max --align center"
 			fi
 			_cmd chafa $opts "$1"
 			;;
-
-		*) cat "$1" ;;
+		md)
+			if _has mcat; then
+				mcat -Pc --ascii --sc ${w}x${h} --theme kanagawa "$1"
+			else
+				cat "$1"
+			fi
+			;;
+		*)
+			cat "$1"
 		esac
 		;;
 	esac
