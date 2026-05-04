@@ -43,7 +43,18 @@ set previewer ~/.config/lf/preview.sh
 # ---- KEYMAPS ----
 clearmaps # remove default bindings
 
-map ? :maps # show keymaps
+# NOTE:
+#   Syntax:
+#   map KEY COMMAND                   # Run single command
+#   map KEY :COMMAND1; COMMAND2; ...  # Run multiple commands
+#   map KEY push ...                  # Emulate keypresses
+#
+#   Predefined Variables:
+#   $f  - File that the cursor on
+#   $fs - Selected files if there are any, each separated with `filesep`
+#   $fx - Same as `$fs` if it's not empty, otherwise `$f`
+#   $id - ID of the lf client
+#
 map q quit
 map R reload
 map <esc> reload
