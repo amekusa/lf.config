@@ -35,6 +35,8 @@ set cursorpreviewfmt "\033[7;2m"
 set icons # enable icons
 set mouse # enable mouse interaction
 
+set tabstop 4 # tab width
+
 # enable custom previewer
 set preview
 set previewer ~/.config/lf/preview.sh
