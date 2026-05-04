@@ -55,13 +55,15 @@ clearmaps # remove default bindings
 #   $fx - Same as `$fs` if it's not empty, otherwise `$f`
 #   $id - ID of the lf client
 #
+
+map ? maps # show keymaps
 map q quit
-map R reload
-map <esc> reload
+map r reload
+map <esc> :unselect; clear; reload
 map . set hidden! # toggle hidden files
 
 # preview
-map <space> $~/.config/lf/preview.sh $f | less -R
+map <space> $~/.config/lf/preview.sh $f | $PAGER -R
 map <tab> set preview! # toggle preview column
 
 
@@ -77,6 +79,7 @@ map <up>    up
 map <right> open
 
 map <c-u> half-up
+map <c-e> half-up
 map <c-d> half-down
 
 map <pgup> half-up
@@ -97,7 +100,7 @@ map ; find-next
 map / search
 map N search-prev
 map n search-next
-map F :setfilter; filter # filter
+map F :setfilter; filter
 
 
 # -- FILE OPERATIONS --
@@ -107,9 +110,11 @@ map <s-down>  :toggle; down
 map <s-left>  invert
 map <s-right> toggle
 
-map v :toggle; down # toggle selection
-map u unselect # clear selection
-map i invert # invert selection
+map v     :toggle; down # toggle selection + cursor up
+map <c-v> :toggle; up   # toggle selection + cursor down
+map V     invert   # invert selection
+map u     unselect # clear selection
+
 map y
 map yy copy
 map yp copy-path --full
@@ -117,11 +122,12 @@ map yr copy-path --realpath
 map yn copy-path --basename
 map yb copy-path --basename
 map yd copy-path --dirname
+
 map d cut
 map c clear # clear copy/cut buffer
 map p paste
 map D trash # trash selected files
-map r rename
+map i rename
 
 
 # -- SORTING --
@@ -144,19 +150,19 @@ map zt set info time
 
 # -- SHELL INTEGRATION --
 map \$ shell
-map \% shell-pipe
-map \& shell-async
 map \! shell-wait
+map \& shell-async
+map \% shell-pipe
 
 # edit
 map e $$EDITOR $f
 
-# enter '!<cursor> $f'
-map <enter> push !<space>$f<left><left><left>
+# Start to input shell command
+map <enter> push !<space>$fx<left><left><left><left>
 
-# execute current file (must be executable)
-map X $$f
+# Execute the file
 map x !$f
+map X $$f
 
 # mkdir
 map a push %mkdir<space>-p<space>
