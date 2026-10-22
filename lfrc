@@ -185,16 +185,25 @@ cmap <backtab> cmd-menu-complete-back
 # text files and a file opener for the rest.
 cmd open &{{
 	set -f
-	case $(file --mime-type -Lb $f) in
+	case "$(file --mime-type -Lb "$f")" in
 	text/html)
-		:
+		: #default
 		;;
 	text/*)
 		lf -remote "send $id \$$EDITOR \$f"
 		return
 		;;
+	application/*)
+		case "$(echo -- "$f" | tr '[:upper:]' '[:lower:]')" in
+		*.zip|*.7z|*.rar|*.tar|*.tar.*)
+			lf -remote "send $id !clear; ~/.config/lf/extract.sh \$f"
+			return
+			;;
+		esac
+		;;
 	esac
-	$OPENER $f &>/dev/null
+	# Fallback to OS
+	$OPENER "$f" &>/dev/null
 }}
 
 # Custom 'paste' command.
