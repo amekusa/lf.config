@@ -65,7 +65,7 @@ map <esc> :unselect; clear; reload
 map . set hidden! # toggle hidden files
 
 # preview
-map <space> $~/.config/lf/preview.sh $f | $PAGER -R
+map <space> $~/.config/lf/preview.sh $f | less -r
 map <tab> set preview! # toggle preview column
 
 
