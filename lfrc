@@ -154,7 +154,7 @@ map zc set info ctime
 map \$ shell
 map \! shell-wait
 map \& shell-async
-map \% shell-pipe
+map \% shell-pipe # Shows the output in the bottom (only the 1st line)
 
 # edit
 map e $$EDITOR $f
