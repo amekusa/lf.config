@@ -29,7 +29,7 @@ set wrapscroll true
 set infotimefmtnew "1/02 15:04"
 set infotimefmtold "2006-01-02"
 
-# Use the `dim` attribute instead of underline for the cursor in the preview pane
+# use the `dim` attribute instead of underline for the cursor in the preview pane
 set cursorpreviewfmt "\033[7;2m"
 
 set icons # enable icons
