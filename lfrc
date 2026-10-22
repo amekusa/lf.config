@@ -161,10 +161,10 @@ map \% shell-pipe # Shows the output in the bottom (only the 1st line)
 map e $$EDITOR $f
 map E push $$EDITOR<space>
 
-# Start to input shell command
+# start to input shell command
 map <enter> push !<space>$fx<left><left><left><left>
 
-# Execute the file
+# execute the file
 map x !$f
 map X $$f
 
