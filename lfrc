@@ -202,7 +202,7 @@ cmd open &{{
 		esac
 		;;
 	esac
-	# Fallback to OS
+	# fallback to os
 	$OPENER "$f" &>/dev/null
 }}
 
