@@ -206,11 +206,10 @@ cmd open &{{
 	$OPENER "$f" &>/dev/null
 }}
 
-# Custom 'paste' command.
 cmd paste %{{
 	load="$(< ~/.local/share/lf/files)"
-	mode="${load%%$'\n'*}"
-	list="${load#*$'\n'}"
+	mode="${load%%$'\n'*}" # 1st line
+	list="${load#*$'\n'}"  # the rest
 	case "$mode" in
 	copy)
 		while IFS= read -r item; do
