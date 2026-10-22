@@ -207,6 +207,7 @@ cmd open &{{
 }}
 
 cmd paste %{{
+	set -f
 	load="$(< ~/.local/share/lf/files)"
 	mode="${load%%$'\n'*}" # 1st line
 	list="${load#*$'\n'}"  # the rest
