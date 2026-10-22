@@ -68,6 +68,7 @@ _extract() {
 			- dst: '$dst'
 
 			EOF
+			cd "$dst"
 			return 0
 		else
 			cat <<- EOF
