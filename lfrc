@@ -171,6 +171,11 @@ map X $$f
 map a push %mkdir<space>-p<space>
 
 
+# ---- COMMANLINE KEYMAPS ----
+cmap <tab>     cmd-menu-complete
+cmap <backtab> cmd-menu-complete-back
+
+
 # ---- COMMANDS ----
 
 # define a custom 'open' command
