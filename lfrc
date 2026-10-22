@@ -106,7 +106,6 @@ map F :setfilter; filter
 
 
 # -- FILE OPERATIONS --
-# select with shift + arrows
 map <s-up>    :up; toggle
 map <s-down>  :toggle; down
 map <s-left>  invert
@@ -126,10 +125,12 @@ map yb copy-path --basename
 map yd copy-path --dirname
 
 map d cut
-map c clear # clear copy/cut buffer
+map c clear
 map p paste
-map D trash # trash selected files
+map D trash
+
 map r rename
+map m push %mv<space>$fx<space> # move
 
 
 # -- SORTING --
