@@ -60,7 +60,7 @@ clearmaps # remove default bindings
 
 map ? maps # show keymaps
 map q quit
-map r reload
+map <c-r> reload
 map <esc> :unselect; clear; reload
 map . set hidden! # toggle hidden files
 
@@ -129,7 +129,7 @@ map d cut
 map c clear # clear copy/cut buffer
 map p paste
 map D trash # trash selected files
-map i rename
+map r rename
 
 
 # -- SORTING --
