@@ -158,6 +158,7 @@ map \% shell-pipe # Shows the output in the bottom (only the 1st line)
 
 # edit
 map e $$EDITOR $f
+map E push $$EDITOR<space>
 
 # Start to input shell command
 map <enter> push !<space>$fx<left><left><left><left>
